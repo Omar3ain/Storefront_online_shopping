@@ -1,0 +1,18 @@
+{
+    "dev": {
+        "env": "dev",
+        "driver": "pg",
+        "host": "127.0.0.1",
+        "database": "store_front_db",
+        "user": "store_user",
+        "password": "user_123"
+    },
+    "test": {
+        "env": "test",
+        "driver": "pg",
+        "host": "127.0.0.1",
+        "database": "store_front_db_test",
+        "user": "test_user",
+        "password": "user_123"
+    }
+}
