@@ -1,4 +1,5 @@
 import  express, { NextFunction }  from "express";
+import verifyAuthToken from "../../middleware/verifyAuthToken";
 import product from "../../models/product";
 
 
@@ -13,11 +14,19 @@ productRouter.get('/products' , async (req : express.Request , res : express.Res
         throw new Error(`${err}`)
     }
 })
-.post('/products', async (req : express.Request , res : express.Response , next : NextFunction) => {
+.get('/product/:id' , async (req : express.Request , res : express.Response) => {
+    try {
+        const product = await productModel.show(parseInt(req.params.id));
+        res.json(product);
+    }catch(err) {
+        throw new Error(`${err}`)
+    }
+})
+.post('/products',verifyAuthToken, async (req : express.Request , res : express.Response , next : NextFunction) => {
     try{
         const product = await productModel.create(req.body);
         res.json({
-            status: 'succus',
+            status: 'success',
             product : { ...product },
             message : 'product created succsfully'
         })

@@ -25,8 +25,8 @@ type Product = {
     async show(id: number): Promise<Product> {
         try{
             const conn = await client.connect();
-            const sql = `SELECT * FROM products WHERE id=${id}`;
-            //@ts-ignore
+            const sql = 'SELECT * FROM products WHERE id=$1';
+
             const result = await conn.query(sql ,[id]);
             conn.release();
             return result.rows[0];

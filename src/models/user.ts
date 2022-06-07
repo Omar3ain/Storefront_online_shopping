@@ -13,7 +13,7 @@ const {
 const pepper : string | undefined = BYCRPT_PASSWORD;
 const saltrounds:string | undefined =SALT_ROUNDS
 
-type User = {
+export type User = {
     id : number,
     username: string,
     firstname: string,
@@ -53,6 +53,33 @@ class userModel  {
         return null
     }
 
+    async index() : Promise<User[]> {
+        try {
+            const conn = await client.connect();
+            const sql = 'SELECT * FROM users';
+            //@ts-ignore
+            const result =await conn.query(sql);
+            //@ts-ignore
+             conn.release()
+            return result.rows;
+        } catch(err) {
+            throw new Error(`Cannot get users : ${err}`)
+        }
+    }
+
+    async show(id : number) : Promise<User> {
+        try{
+            const conn = await client.connect();
+            const sql = 'SELECT * FROM users WHERE id=$1';
+
+            const result = await conn.query(sql , [id])
+            const user = result.rows[0]
+            conn.release()
+            return user
+        } catch(err) {
+            throw new Error(`Cannot get user with that id : ${err}`)
+        }
+    }
 }
 
 export default userModel;
