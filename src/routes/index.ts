@@ -1,7 +1,7 @@
 import  express, { NextFunction }  from "express";
-import productRouter from './controllars/productsControllars';
-import userRouter from "./controllars/usersControllars";
-import orderRouter from './controllars/ordersControllars'
+import productRouter from './handlers/productsControllars';
+import userRouter from "./handlers/usersControllars";
+import orderRouter from './handlers/ordersControllars'
 
 const router = express.Router();
 
