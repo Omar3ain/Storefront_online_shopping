@@ -2,13 +2,13 @@ import client from "../database";
 
 
 type Product = {
-    id : number;
+    id?: number;
     name: string;
     price: number;
     category: string;
 }
 
- class product {
+ class productModel {
     async index() : Promise<Product[]> {
       try { 
             const conn = await client.connect();
@@ -54,4 +54,4 @@ type Product = {
     
 }
 
-export default product;
+export default productModel;

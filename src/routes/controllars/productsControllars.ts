@@ -1,14 +1,14 @@
 import  express, { NextFunction }  from "express";
 import verifyAuthToken from "../../middleware/verifyAuthToken";
-import product from "../../models/product";
+import productModel from "../../models/product";
 
 
 const productRouter = express.Router();
-const productModel = new product();
+const Product = new productModel();
 
 productRouter.get('/products' , async (req : express.Request , res : express.Response) => {
     try {
-        const products = await productModel.index();
+        const products = await Product.index();
         res.json(products);
     }catch(err) {
         throw new Error(`${err}`)
@@ -16,7 +16,7 @@ productRouter.get('/products' , async (req : express.Request , res : express.Res
 })
 .get('/product/:id' , async (req : express.Request , res : express.Response) => {
     try {
-        const product = await productModel.show(parseInt(req.params.id));
+        const product = await Product.show(parseInt(req.params.id));
         res.json(product);
     }catch(err) {
         throw new Error(`${err}`)
@@ -24,7 +24,7 @@ productRouter.get('/products' , async (req : express.Request , res : express.Res
 })
 .post('/products',verifyAuthToken, async (req : express.Request , res : express.Response , next : NextFunction) => {
     try{
-        const product = await productModel.create(req.body);
+        const product = await Product.create(req.body);
         res.json({
             status: 'success',
             product : { ...product },

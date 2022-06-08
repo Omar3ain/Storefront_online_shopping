@@ -1,7 +1,7 @@
 import client from "../database";
 
 type Order ={
-    id: number,
+    id?: number,
     quantity :number,
     status_of_order :boolean,
     user_id :number ,

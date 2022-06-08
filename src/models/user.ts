@@ -14,7 +14,7 @@ const pepper : string | undefined = BYCRPT_PASSWORD;
 const saltrounds:string | undefined =SALT_ROUNDS
 
 export type User = {
-    id : number,
+    id? : number,
     username: string,
     firstname: string,
     lastname: string,
