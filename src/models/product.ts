@@ -38,12 +38,12 @@ type Product = {
     async create(p : Product) : Promise<Product> {
         try {
             const conn = await client.connect();
-            const sql = `INSERT INTO products (name , price , category) values ($1 ,$2 ,$3)`
-            //@ts-ignore
+            const sql = `INSERT INTO products (name , price , category) values ($1 ,$2 ,$3) RETURNING *`
+
             const result = await conn.query(sql , [p.name , p.price , p.category]);
-    
-            conn.release();
             const product = result.rows[0];
+            conn.release();
+            
             return product;
         } catch (err) {
             throw new Error(`Could not create new product ${err}`);

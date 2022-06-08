@@ -22,7 +22,7 @@ productRouter.get('/products' , async (req : express.Request , res : express.Res
         throw new Error(`${err}`)
     }
 })
-.post('/products',verifyAuthToken, async (req : express.Request , res : express.Response , next : NextFunction) => {
+.post('/product',verifyAuthToken, async (req : express.Request , res : express.Response , next : NextFunction) => {
     try{
         const product = await Product.create(req.body);
         res.json({
