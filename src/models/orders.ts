@@ -2,10 +2,8 @@ import client from "../database";
 
 type Order ={
     id?: number,
-    quantity :number,
     status_of_order :boolean,
-    user_id :number ,
-    product_id :number
+    user_id :number 
 }
 
 class orderModel {
@@ -13,9 +11,9 @@ class orderModel {
     async create(o: Order) : Promise<Order> {
         try{
             const conn = await client.connect();
-            const sql = "INSERT INTO orders(quantity , status_of_order , user_id , product_id) VALUES ($1 , $2 ,$3 , $4) RETURNING *";
+            const sql = "INSERT INTO orders( status_of_order , user_id ) VALUES ($1 , $2) RETURNING *";
 
-            const result = await client.query(sql , [o.quantity , o.status_of_order , o.user_id , o.product_id]);
+            const result = await client.query(sql , [ o.status_of_order , o.user_id]);
             conn.release()
 
             return result.rows[0];

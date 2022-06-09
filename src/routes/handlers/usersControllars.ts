@@ -20,14 +20,23 @@ userRouter.post('/user' , async(req : express.Request , res : express.Response ,
     }
     
 })
-.get('/user/:id' , verifyAuthToken , async (req : express.Request , res : express.Response ) => {
-    const id = parseInt(req.params.id) ;
-    const user = await userModel.show(id);
-    res.json(user) 
+.get('/user/:id' , verifyAuthToken , async (req : express.Request , res : express.Response, next: express.NextFunction ) => {
+    try{
+        const id = parseInt(req.params.id) ;
+        const user = await userModel.show(id);
+        res.json(user) 
+    }catch(err){
+        next(err)
+    }
+   
 })
-.get('/users' ,verifyAuthToken, async (req : express.Request , res : express.Response) => {
-    const users = await userModel.index();
-    res.json(users)
+.get('/users' ,verifyAuthToken, async (req : express.Request , res : express.Response, next: express.NextFunction) => {
+    try{
+        const users = await userModel.index();
+        res.json(users)
+    }catch(err){
+        next(err)
+    }
 
 })
 

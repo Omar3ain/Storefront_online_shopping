@@ -7,6 +7,12 @@ type Product = {
     price: number;
     category: string;
 }
+type Order_Product = {
+    id?: number;
+    quantity: number;
+    product_id: number;
+    order_id: string;
+}
 
  class productModel {
     async index() : Promise<Product[]> {
@@ -51,6 +57,21 @@ type Product = {
         
     }
 
+
+    async addOrder(quantity : number ,order_id : number , product_id : number): Promise<Order_Product> {
+        try{
+            const conn = await client.connect();
+            const sql = 'INSERT INTO product_order_table (quantity ,order_id , product_id) VALUES ($1 , $2 ,$3) RETURNING *';
+            const result = await conn.query(sql , [quantity , order_id , product_id]);
+            const order = result.rows[0];
+            conn.release();
+
+            return order;
+        } catch(err) {
+            throw new Error(`${err}`)
+        }
+
+    }
     
 }
 

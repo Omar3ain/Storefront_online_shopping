@@ -22,21 +22,25 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Data Shapes
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+-  id: serial primary key
+-  name: VARCHAR(255)
+-  price: integer
+-  [OPTIONAL] category: VARCHAR(100)
 
 #### User
-- id
-- firstName
-- lastName
-- password
+-  id SERIAL: PRIMARY KEY,
+-  username: VARCHAR(150),
+-  firstname: VARCHAR(100),
+-  lastname: VARCHAR(100),
+-  password_digest: VARCHAR
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id SERIAL: PRIMARY key
+- user_id:  integer
+- status of order (active or complete): boolean
 
+#### Orders_prodct
+- id:  SERIAL PRIMARY KEY
+- quantity: integer
+- order_id: integer
+- Product_id: integer

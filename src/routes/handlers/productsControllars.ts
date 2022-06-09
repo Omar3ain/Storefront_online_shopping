@@ -35,5 +35,18 @@ productRouter.get('/products' , async (req : express.Request , res : express.Res
     }
     
 })
+.post('/order_product' , verifyAuthToken , async(req : express.Request , res : express.Response , next : NextFunction) => {
+    try{
+        const order = await Product.addOrder(req.body.quantity, req.body.order_id , req.body.product_id);
+        res.json({
+            status: 'success',
+            product : { ...order },
+            message : 'order created succsfully'
+        })
+    } catch(err){
+        next(err)
+    }
+    
+})
 
 export default productRouter;
